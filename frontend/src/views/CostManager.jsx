@@ -20,7 +20,7 @@ return(<div><div className="page-header"><h1 className="page-title">{t('costs.ti
 <div style={{display:'flex',alignItems:'center',gap:12,marginTop:12}}><button className="btn btn-primary" onClick={saveP} disabled={saving}>{t('costs.btn_save')}</button>
 {msg&&<span style={{fontSize:12,color:'var(--success)'}}>{msg}</span>}</div></div>
 <div><div className="card"><div className="card-title">{t('costs.card_calc')}</div><div className="form-grid">
-<div className="form-group"><label className="form-label">{t('c.recipe')}</label><select className="form-select" value={cr} onChange={e=>setCr(e.target.value)}>{recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div>
+<div className="form-group"><label className="form-label">{t('c.recipe')}</label><select className="form-select" value={cr} onChange={e=>setCr(e.target.value)}>{recipes.map(r=><option key={r.name} value={r.name}>{td(r.name)}</option>)}</select></div>
 <div className="form-group"><label className="form-label">{t('c.water_profile')}</label><select className="form-select" value={cw} onChange={e=>setCw(e.target.value)}>{wp.map(w=><option key={w.name} value={w.name}>{td(w.name)}</option>)}</select></div></div>
 <button className="btn btn-primary" style={{marginTop:12}} onClick={calcC}>{t('costs.btn_calc')}</button></div>
 {res&&(<div className="card"><div className="card-title">{t('costs.card_result')}</div><div className="stats-grid" style={{marginBottom:14}}>

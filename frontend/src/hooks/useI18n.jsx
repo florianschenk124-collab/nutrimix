@@ -13,18 +13,28 @@ export function I18nProvider({ children }) {
       .catch(() => setTranslations({}))
   }, [lang])
 
-  // t() – UI-Key Übersetzung (z.B. t('calc.title'))
   const t = useCallback((key) => translations[key] || key, [translations])
 
-  // td() – Daten-Level Übersetzung (Salznamen, Rezeptnamen, Pflanzennamen, etc.)
-  // Sucht in: data.{text}, salt.name.{text}, salt.note.{text}
-  // Falls nichts gefunden → Originaltext zurück
+  // td() – Daten-Level Übersetzung
+  // Handles: exact match, salt names, salt notes, data translations
+  // Also handles " | " separated multi-descriptions
   const td = useCallback((text) => {
     if (!text || lang === 'de') return text
-    return translations[`data.${text}`]
+    // Try exact matches first
+    const direct = translations[`data.${text}`]
       || translations[`salt.name.${text}`]
       || translations[`salt.note.${text}`]
-      || text
+    if (direct) return direct
+    // Handle " | " separated strings (e.g. compatibility descriptions)
+    if (text.includes(' | ')) {
+      return text.split(' | ').map(part => {
+        const p = translations[`data.${part.trim()}`]
+          || translations[`salt.name.${part.trim()}`]
+          || part.trim()
+        return p
+      }).join(' | ')
+    }
+    return text
   }, [translations, lang])
 
   return (

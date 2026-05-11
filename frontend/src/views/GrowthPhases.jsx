@@ -12,10 +12,10 @@ if(loading)return<div className="placeholder-view"><span className="spinner"/></
 return(<div><div className="page-header"><h1 className="page-title">{t('growth.title')}</h1><p className="page-subtitle">{t('growth.subtitle')}</p></div>
 <div className="card"><div className="card-title">{t('growth.card_select')}</div>
 <div className="form-grid"><div className="form-group"><label className="form-label">{t('growth.plan')}</label>
-<select className="form-select" value={selectedName} onChange={e=>{setSelectedName(e.target.value);setRecipeOverride('')}}>{plans.map(p=><option key={p.name} value={p.name}>{p.name}</option>)}</select></div>
+<select className="form-select" value={selectedName} onChange={e=>{setSelectedName(e.target.value);setRecipeOverride('')}}>{plans.map(p=><option key={p.name} value={p.name}>{td(p.name)}</option>)}</select></div>
 <div className="form-group"><label className="form-label">{t('growth.base_label')} (Override)</label>
 <select className="form-select" value={recipeOverride} onChange={e=>setRecipeOverride(e.target.value)}><option value="">{t('growth.auto')}</option>
-{recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div></div>
+{recipes.map(r=><option key={r.name} value={r.name}>{td(r.name)}</option>)}</select></div></div>
 {schedule&&<div style={{fontSize:12,color:'var(--text-secondary)',marginTop:8}}>{td(selected?.description)} — {t('growth.base_label')}: <strong>{td(schedule.base_recipe)}</strong>
 {schedule.original_recipe!==schedule.base_recipe&&<span style={{color:'var(--warning)',marginLeft:8}}>(Original: {td(schedule.original_recipe)})</span>}</div>}
 {error&&<div className="alert alert-warning" style={{marginTop:8}}>{error}</div>}</div>

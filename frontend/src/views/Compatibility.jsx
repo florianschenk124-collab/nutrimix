@@ -24,5 +24,5 @@ return(<div><div className="page-header"><h1 className="page-title">{t('compat.t
 <tbody>{filtered.map((c,i)=>(<tr key={i} style={{background:SB[c.severity]||undefined}}>
 <td style={{padding:'7px 14px',fontSize:12}}>{td(c.salt_a)}</td><td style={{padding:'7px 14px',fontSize:12}}>{td(c.salt_b)}</td>
 <td style={{padding:'7px 14px'}}><span style={{fontSize:11,fontWeight:600,color:SC[c.severity],textTransform:'uppercase'}}>{c.severity}</span></td>
-<td style={{padding:'7px 14px',fontFamily:'var(--font-mono)',fontSize:12}}>{c.precipitate||'–'}</td>
+<td style={{padding:'7px 14px',fontFamily:'var(--font-mono)',fontSize:12}}>{td(c.precipitate)||'–'}</td>
 <td style={{padding:'7px 14px',fontSize:12,color:'var(--text-secondary)'}}>{td(c.reason)}</td></tr>))}</tbody></table></div></div>)}

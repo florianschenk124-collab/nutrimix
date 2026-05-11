@@ -13,7 +13,7 @@ return(<div><div className="page-header"><h1 className="page-title">{t('editor.t
 <div className="card"><div className="card-title">{t('editor.card_template')}</div>
 <div className="form-group" style={{maxWidth:300}}><label className="form-label">{t('editor.template')}</label>
 <select className="form-select" value={template} onChange={e=>loadT(e.target.value)}><option value="">{t('editor.empty')}</option>
-{recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div></div>
+{recipes.map(r=><option key={r.name} value={r.name}>{td(r.name)}</option>)}</select></div></div>
 <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
 <div className="card"><div className="card-title">{t('editor.card_info')}</div><div className="form-grid">
 <div className="form-group" style={{gridColumn:'1/-1'}}><label className="form-label">{t('editor.name')}</label><input className="form-input" value={form.name} placeholder={t('editor.name_ph')} onChange={e=>set('name',e.target.value)}/></div>

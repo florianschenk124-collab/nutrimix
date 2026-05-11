@@ -37,7 +37,7 @@ return(<div><div className="page-header"><h1 className="page-title">{t('ph.title
 <div className="card" style={{marginTop:24}}><div className="card-title">{t('ph.buf_title')}</div>
 <p style={{fontSize:12,color:'var(--text-secondary)',marginBottom:12}}>{t('ph.buf_desc')}</p>
 <div className="form-grid"><div className="form-group"><label className="form-label">{t('c.recipe')}</label>
-<select className="form-select" value={sr} onChange={e=>setSr(e.target.value)}><option value="">{t('ph.buf_select')}</option>{recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div>
+<select className="form-select" value={sr} onChange={e=>setSr(e.target.value)}><option value="">{t('ph.buf_select')}</option>{recipes.map(r=><option key={r.name} value={r.name}>{td(r.name)}</option>)}</select></div>
 <div className="form-group"><label className="form-label">{t('c.water_profile')}</label>
 <select className="form-select" value={sw} onChange={e=>setSw(e.target.value)}><option value="">Osmosewasser</option>{wp.map(w=><option key={w.name} value={w.name}>{td(w.name)}</option>)}</select></div></div>
 <button className="btn btn-primary" style={{marginTop:12}} onClick={calcB} disabled={!sr}>{t('ph.buf_btn')}</button>

@@ -10,9 +10,9 @@ const pct=(a,b)=>{if(!b||b===0)return'';const d=((a-b)/b*100);if(Math.abs(d)<0.5
 const dC=(a,b)=>{if(!b||b===0)return'var(--text-muted)';const d=Math.abs((a-b)/b*100);return d<5?'var(--success)':d<20?'var(--warning)':'var(--error)'}
 return(<div><div className="page-header"><h1 className="page-title">{t('compare.title')}</h1><p className="page-subtitle">{t('compare.subtitle')}</p></div>
 <div className="card" style={{display:'flex',gap:16,alignItems:'flex-end',flexWrap:'wrap'}}>
-<div className="form-group" style={{flex:1,minWidth:200}}><label className="form-label">{t('compare.recipe_a')}</label><select className="form-select" value={nameA} onChange={e=>setNameA(e.target.value)}>{recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div>
+<div className="form-group" style={{flex:1,minWidth:200}}><label className="form-label">{t('compare.recipe_a')}</label><select className="form-select" value={nameA} onChange={e=>setNameA(e.target.value)}>{recipes.map(r=><option key={r.name} value={r.name}>{td(r.name)}</option>)}</select></div>
 <div style={{color:'var(--text-muted)',fontSize:18,paddingBottom:8}}>⇄</div>
-<div className="form-group" style={{flex:1,minWidth:200}}><label className="form-label">{t('compare.recipe_b')}</label><select className="form-select" value={nameB} onChange={e=>setNameB(e.target.value)}>{recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div>
+<div className="form-group" style={{flex:1,minWidth:200}}><label className="form-label">{t('compare.recipe_b')}</label><select className="form-select" value={nameB} onChange={e=>setNameB(e.target.value)}>{recipes.map(r=><option key={r.name} value={r.name}>{td(r.name)}</option>)}</select></div>
 <button className="btn btn-primary" onClick={doC}>{t('compare.btn')}</button></div>
 {compared&&(<div><div className="card"><div className="card-title">{t('compare.card_ions')}</div>
 <table className="result-table"><thead><tr><th>{t('calc.col_ion')}</th><th style={{textAlign:'right',color:'var(--tank-a)'}}>{compared.a.name}</th><th style={{textAlign:'right',color:'var(--tank-b)'}}>{compared.b.name}</th><th style={{textAlign:'right'}}>Δ</th></tr></thead>

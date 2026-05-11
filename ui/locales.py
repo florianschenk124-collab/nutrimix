@@ -1109,6 +1109,33 @@ DATA_TRANSLATIONS = {
     "Salat": {"en": "Lettuce"},
     "Spinat": {"en": "Spinach"},
     "Erdbeere": {"en": "Strawberry"},
+    # ── Recipe names with German crops ──
+    "Sonneveld – Tomate": {"en": "Sonneveld – Tomato"},
+    "Sonneveld – Gurke": {"en": "Sonneveld – Cucumber"},
+    "Sonneveld – Paprika": {"en": "Sonneveld – Pepper"},
+    "Sonneveld – Salat": {"en": "Sonneveld – Lettuce"},
+    "Niedrige Konzentration für Blattgemüse": {"en": "Low concentration for leafy greens"},
+    # ── Compatibility descriptions (exact German output of t()) ──
+    "Ca²⁺ + SO₄²⁻ bilden schwerlösliches CaSO₄. In Stammlösung bei hoher Konzentration Ausfällung möglich.": {
+        "en": "Ca²⁺ + SO₄²⁻ form poorly soluble CaSO₄. Precipitation possible in stock solution at high concentration."},
+    "Ca²⁺ + Phosphat bilden unlösliches Calciumphosphat. IMMER in getrennte Tanks!": {
+        "en": "Ca²⁺ + phosphate form insoluble calcium phosphate. ALWAYS use separate tanks!"},
+    "Fe³⁺ + Phosphat → FePO₄ (unlöslich). Fe-Chelate sind stabiler, aber getrennt ist sicherer.": {
+        "en": "Fe³⁺ + phosphate → FePO₄ (insoluble). Fe chelates are more stable, but separate is safer."},
+    "Ca²⁺ und Mg²⁺ konkurrieren an der Wurzel. Getrennte Tanks verbessern die Verfügbarkeit.": {
+        "en": "Ca²⁺ and Mg²⁺ compete at the root. Separate tanks improve availability."},
+    "Spurenelemente können in Gegenwart von Ca bei höherem pH ausfallen. Chelate und getrennte Tanks empfohlen.": {
+        "en": "Trace elements may precipitate in presence of Ca at higher pH. Chelates and separate tanks recommended."},
+    "Keine bekannten Inkompatibilitäten": {"en": "No known incompatibilities"},
+    "Gleiches Salz": {"en": "Same salt"},
+    "Ionenkonkurrenz": {"en": "Ion competition"},
+    "pH-abhängige Ausfällung": {"en": "pH-dependent precipitation"},
+    "Chelate und getrennte Tanks empfohlen.": {"en": "Chelates and separate tanks recommended."},
+    "Fe-Chelate sind stabiler, aber getrennt ist sicherer.": {
+        "en": "Fe chelates are more stable, but separate is safer."},
+    # ── Compatibility combined descriptions (with | separator) ──
+    "CaSO₄ (Gips)": {"en": "CaSO₄ (Gypsum)"},
+    "CaSO₄ (Gips), Ionenkonkurrenz": {"en": "CaSO₄ (Gypsum), Ion competition"},
 }
 
 def td(text: str) -> str:

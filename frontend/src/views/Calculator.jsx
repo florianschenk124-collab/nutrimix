@@ -41,7 +41,7 @@ export default function Calculator() {
         <div className="form-grid">
           <div className="form-group"><label className="form-label">{t('c.recipe')}</label>
             <select className="form-select" value={params.recipe_name} onChange={e => set('recipe_name', e.target.value)}>
-              {recipes.map(r => <option key={r.name} value={r.name}>{r.is_custom ? '⭐ ' : ''}{r.name}</option>)}</select></div>
+              {recipes.map(r => <option key={r.name} value={r.name}>{r.is_custom ? '⭐ ' : ''}{td(r.name)}</option>)}</select></div>
           <div className="form-group"><label className="form-label">{t('c.water_profile')}</label>
             <select className="form-select" value={params.water_profile_name} onChange={e => set('water_profile_name', e.target.value)}>
               {waterProfiles.map(w => <option key={w.name} value={w.name}>{td(w.name)}</option>)}</select></div></div></div>

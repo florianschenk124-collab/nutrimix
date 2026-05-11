@@ -65,7 +65,7 @@ export default function Recipes() {
               className={`nav-item ${selected?.name === r.name ? 'active' : ''}`}
               onClick={() => setSelected(r)} style={{ width: '100%', margin: '1px 0' }}>
               <span className="nav-icon">{r.is_custom ? '⭐' : '📋'}</span>
-              <span>{r.name}</span>
+              <span>{td(r.name)}</span>
             </button>
           ))}
         </div>

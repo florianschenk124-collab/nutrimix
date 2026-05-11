@@ -11,7 +11,7 @@ const fmt=(v,d=2)=>Number(v).toFixed(d)
 return(<div><div className="page-header"><h1 className="page-title">{t('dil.title')}</h1><p className="page-subtitle">{t('dil.subtitle')}</p></div>
 <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
 <div className="card"><div className="card-title">{t('dil.card_stock')}</div><div className="form-grid">
-<div className="form-group"><label className="form-label">{t('c.recipe')}</label><select className="form-select" value={params.recipe_name} onChange={e=>set('recipe_name',e.target.value)}>{recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div>
+<div className="form-group"><label className="form-label">{t('c.recipe')}</label><select className="form-select" value={params.recipe_name} onChange={e=>set('recipe_name',e.target.value)}>{recipes.map(r=><option key={r.name} value={r.name}>{td(r.name)}</option>)}</select></div>
 <div className="form-group"><label className="form-label">{t('c.water_profile')}</label><select className="form-select" value={params.water_profile_name} onChange={e=>set('water_profile_name',e.target.value)}>{wp.map(w=><option key={w.name} value={w.name}>{td(w.name)}</option>)}</select></div>
 <div className="form-group"><label className="form-label">{t('c.conc_factor')}</label><input className="form-input" type="number" value={params.concentrate_factor} onChange={e=>set('concentrate_factor',Number(e.target.value))}/></div></div></div>
 <div className="card"><div className="card-title">{t('dil.card_dilution')}</div><div className="form-grid">
