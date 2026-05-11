@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useI18n } from '../hooks/useI18n'
 import { fetchGrowthPlans, fetchRecipes } from '../api'
 const FK=[{key:'n_factor',label:'N',color:'#5ebd7a'},{key:'k_factor',label:'K',color:'#c77dba'},{key:'ca_factor',label:'Ca',color:'#5b9bd5'},{key:'mg_factor',label:'Mg',color:'#e0a458'},{key:'p_factor',label:'P',color:'#d45f5f'}]
-export default function GrowthPhases(){const{t}=useI18n();const[plans,setPlans]=useState([]);const[recipes,setRecipes]=useState([]);const[selectedName,setSelectedName]=useState('');const[selected,setSelected]=useState(null);const[schedule,setSchedule]=useState(null);const[week,setWeek]=useState(0);const[loading,setLoading]=useState(true);const[error,setError]=useState(null);const[recipeOverride,setRecipeOverride]=useState('')
+export default function GrowthPhases(){const{t,td}=useI18n();const[plans,setPlans]=useState([]);const[recipes,setRecipes]=useState([]);const[selectedName,setSelectedName]=useState('');const[selected,setSelected]=useState(null);const[schedule,setSchedule]=useState(null);const[week,setWeek]=useState(0);const[loading,setLoading]=useState(true);const[error,setError]=useState(null);const[recipeOverride,setRecipeOverride]=useState('')
 useEffect(()=>{Promise.all([fetchGrowthPlans(),fetchRecipes()]).then(([p,r])=>{setPlans(p);setRecipes(r);setLoading(false);if(p.length>0){setSelectedName(p[0].name);setSelected(p[0])}}).catch(e=>{setError(e.message);setLoading(false)})},[])
 useEffect(()=>{if(!selectedName||loading)return;const plan=plans.find(p=>p.name===selectedName);setSelected(plan||null);setError(null)
 const ov=recipeOverride||undefined;const url=ov?`/api/growth-plans/${encodeURIComponent(selectedName)}/schedule?recipe_override=${encodeURIComponent(ov)}`:`/api/growth-plans/${encodeURIComponent(selectedName)}/schedule`
@@ -16,13 +16,13 @@ return(<div><div className="page-header"><h1 className="page-title">{t('growth.t
 <div className="form-group"><label className="form-label">{t('growth.base_label')} (Override)</label>
 <select className="form-select" value={recipeOverride} onChange={e=>setRecipeOverride(e.target.value)}><option value="">{t('growth.auto')}</option>
 {recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div></div>
-{schedule&&<div style={{fontSize:12,color:'var(--text-secondary)',marginTop:8}}>{selected?.description} — {t('growth.base_label')}: <strong>{schedule.base_recipe}</strong>
-{schedule.original_recipe!==schedule.base_recipe&&<span style={{color:'var(--warning)',marginLeft:8}}>(Original: {schedule.original_recipe})</span>}</div>}
+{schedule&&<div style={{fontSize:12,color:'var(--text-secondary)',marginTop:8}}>{td(selected?.description)} — {t('growth.base_label')}: <strong>{td(schedule.base_recipe)}</strong>
+{schedule.original_recipe!==schedule.base_recipe&&<span style={{color:'var(--warning)',marginLeft:8}}>(Original: {td(schedule.original_recipe)})</span>}</div>}
 {error&&<div className="alert alert-warning" style={{marginTop:8}}>{error}</div>}</div>
 {schedule&&(<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
 <div className="card"><div className="card-title">{t('growth.card_phases')}</div>
 {selected?.phases?.map((ph,i)=>{const isA=cw?.phase_name===ph.name;return(<div key={i} style={{padding:'10px 14px',borderBottom:'1px solid var(--border-subtle)',background:isA?'var(--accent-bg)':undefined,borderLeft:isA?'3px solid var(--accent)':'3px solid transparent',cursor:'pointer'}} onClick={()=>setWeek(ph.week_start)}>
-<div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><div><div style={{fontWeight:600,fontSize:13}}>{ph.name}</div><div style={{fontSize:11,color:'var(--text-muted)'}}>{t('growth.week_header')} {ph.week_start}–{ph.week_end}{ph.ec_target>0?` · EC ${ph.ec_target}`:''}</div></div>
+<div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><div><div style={{fontWeight:600,fontSize:13}}>{td(ph.name)}</div><div style={{fontSize:11,color:'var(--text-muted)'}}>{t('growth.week_header')} {ph.week_start}–{ph.week_end}{ph.ec_target>0?` · EC ${ph.ec_target}`:''}</div></div>
 <div style={{display:'flex',gap:4}}>{FK.map(f=><span key={f.key} style={{fontSize:9,fontFamily:'var(--font-mono)',padding:'1px 4px',borderRadius:3,background:ph[f.key]!==1.0?f.color+'22':'transparent',color:ph[f.key]!==1.0?f.color:'var(--text-muted)'}}>{f.label}×{fmt(ph[f.key],1)}</span>)}</div></div></div>)})}</div>
 <div><div className="card"><div className="card-title">{t('growth.card_week')}</div>
 <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:12}}>
@@ -31,7 +31,7 @@ return(<div><div className="page-header"><h1 className="page-title">{t('growth.t
 <button className="btn" style={{padding:'4px 10px',fontSize:16,background:'var(--bg-input)',border:'1px solid var(--border-subtle)',color:'var(--text-primary)'}} onClick={()=>setWeek(Math.min(schedule.total_weeks,week+1))} disabled={week>=schedule.total_weeks}>▶</button></div>
 <input type="range" min="0" max={schedule.total_weeks} value={week} onChange={e=>setWeek(Number(e.target.value))} style={{width:'100%',accentColor:'var(--accent)'}}/></div>
 {cw&&(<><div className="stats-grid" style={{marginBottom:12}}>
-<div className="stat-item"><div className="stat-label">{t('growth.phase_label')}</div><div className="stat-value" style={{fontSize:14}}>{cw.phase_name}</div></div>
+<div className="stat-item"><div className="stat-label">{t('growth.phase_label')}</div><div className="stat-value" style={{fontSize:14}}>{td(cw.phase_name)}</div></div>
 <div className="stat-item"><div className="stat-label">{t('growth.ec_target')}</div><div className="stat-value" style={{fontSize:14}}>{cw.ec_target>0?`${fmt(cw.ec_target,1)} mS/cm`:'–'}</div></div></div>
 <div className="card"><div className="card-title">{t('growth.modifiers')}</div>
 {FK.map(f=>{const v=cw.factors?.[f.key]||1.0;return(<div key={f.key} style={{display:'flex',alignItems:'center',gap:10,marginBottom:8}}>

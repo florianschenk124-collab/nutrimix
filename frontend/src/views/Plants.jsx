@@ -4,7 +4,7 @@ import { fetchPlants, fetchRecipes } from '../api'
 const CATEGORY_FILTERS=[{key:'',locale:'plants.filter_all'},{key:'Fruchtgemüse',locale:'plants.filter_fruit'},{key:'Blattgemüse',locale:'plants.filter_leafy'},{key:'Kohlgemüse',locale:'plants.filter_brassica'},{key:'Kräuter',locale:'plants.filter_herbs'},{key:'Sonstiges',locale:'plants.filter_other'}]
 const CATEGORIES=['Fruchtgemüse','Blattgemüse','Kohlgemüse','Kräuter','Wurzelgemüse','Sonstiges','Beeren']
 const EMPTY={name:'',category:'Fruchtgemüse',ec_min:1.0,ec_max:2.5,ph_min:5.5,ph_max:6.5,notes:'',keywords:[]}
-export default function Plants(){const{t}=useI18n();const[plants,setPlants]=useState([]);const[recipes,setRecipes]=useState([]);const[selected,setSelected]=useState(null);const[filter,setFilter]=useState('');const[search,setSearch]=useState('');const[showAdd,setShowAdd]=useState(false);const[form,setForm]=useState({...EMPTY});const[keywordsStr,setKeywordsStr]=useState('');const[msg,setMsg]=useState('')
+export default function Plants(){const{t,td}=useI18n();const[plants,setPlants]=useState([]);const[recipes,setRecipes]=useState([]);const[selected,setSelected]=useState(null);const[filter,setFilter]=useState('');const[search,setSearch]=useState('');const[showAdd,setShowAdd]=useState(false);const[form,setForm]=useState({...EMPTY});const[keywordsStr,setKeywordsStr]=useState('');const[msg,setMsg]=useState('')
 const load=()=>{Promise.all([fetchPlants(),fetchRecipes()]).then(([p,r])=>{setPlants(p);setRecipes(r)})}
 useEffect(load,[])
 const filtered=plants.filter(p=>{if(filter&&p.category!==filter)return false;if(search)return p.name.toLowerCase().includes(search.toLowerCase());return true})
@@ -28,10 +28,10 @@ return(<div><div className="page-header"><h1 className="page-title">{t('plants.t
 </div><div style={{marginTop:12,display:'flex',gap:12,alignItems:'center'}}><button className="btn btn-primary" onClick={saveNew}>{t('plants.btn_save')}</button>{msg&&<span style={{fontSize:12,color:'var(--success)'}}>{msg}</span>}</div></div>)}
 <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:14}}>
 {filtered.map(p=>{const matching=getMatch(p);const isS=selected?.name===p.name;return(
-<div key={p.name} className="card" onClick={()=>setSelected(isS?null:p)} style={{cursor:'pointer',borderColor:isS?'var(--accent)':undefined}}>
-<div><div style={{fontSize:16,fontWeight:600}}>{p.name}</div><div style={{fontSize:11,color:'var(--text-muted)'}}>{p.category}</div></div>
+<div key={td(p.name)} className="card" onClick={()=>setSelected(isS?null:p)} style={{cursor:'pointer',borderColor:isS?'var(--accent)':undefined}}>
+<div><div style={{fontSize:16,fontWeight:600}}>{td(p.name)}</div><div style={{fontSize:11,color:'var(--text-muted)'}}>{td(p.category)}</div></div>
 <div className="stats-grid" style={{marginTop:12,gridTemplateColumns:'1fr 1fr'}}>
 <div className="stat-item" style={{padding:'8px 10px'}}><div className="stat-label" style={{fontSize:10}}>EC</div><div className="stat-value" style={{fontSize:13}}>{p.ec_min} – {p.ec_max}</div></div>
 <div className="stat-item" style={{padding:'8px 10px'}}><div className="stat-label" style={{fontSize:10}}>pH</div><div className="stat-value" style={{fontSize:13}}>{p.ph_min} – {p.ph_max}</div></div></div>
-{isS&&(<div style={{marginTop:12}}>{p.notes&&<div style={{fontSize:12,color:'var(--text-secondary)',marginBottom:10}}>{p.notes}</div>}
+{isS&&(<div style={{marginTop:12}}>{p.notes&&<div style={{fontSize:12,color:'var(--text-secondary)',marginBottom:10}}>{td(p.notes)}</div>}
 {matching.length>0?matching.map(r=>(<div key={r.name} className="alert alert-info" style={{padding:'6px 10px',fontSize:12}}>📋 {r.name} (EC: {r.ec_target||'–'})</div>)):<div style={{fontSize:11,color:'var(--text-muted)',fontStyle:'italic'}}>{t('plants.no_match')}</div>}</div>)}</div>)})}</div></div>)}

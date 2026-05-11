@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useI18n } from '../hooks/useI18n'
 import { fetchRecipes, fetchWaterProfiles, calculate, calcDilution } from '../api'
-export default function Dilution(){const{t}=useI18n();const[recipes,setRecipes]=useState([]);const[wp,setWp]=useState([]);const[params,setParams]=useState({recipe_name:'',water_profile_name:'Osmosewasser',concentrate_factor:100,target_ec:1.5,volume_l:10,water_ec:0,dose_ratio:'1:1'});const[cr,setCr]=useState(null);const[dr,setDr]=useState(null);const[dt,setDt]=useState([]);const[loading,setLoading]=useState(false)
+export default function Dilution(){const{t,td}=useI18n();const[recipes,setRecipes]=useState([]);const[wp,setWp]=useState([]);const[params,setParams]=useState({recipe_name:'',water_profile_name:'Osmosewasser',concentrate_factor:100,target_ec:1.5,volume_l:10,water_ec:0,dose_ratio:'1:1'});const[cr,setCr]=useState(null);const[dr,setDr]=useState(null);const[dt,setDt]=useState([]);const[loading,setLoading]=useState(false)
 useEffect(()=>{Promise.all([fetchRecipes(),fetchWaterProfiles()]).then(([r,w])=>{setRecipes(r);setWp(w);if(r.length>0)setParams(prev=>({...prev,recipe_name:r[0].name}))})},[])
 const set=(k,v)=>setParams(prev=>({...prev,[k]:v}))
 const doC=async()=>{setLoading(true);try{const full=await calculate({recipe_name:params.recipe_name,water_profile_name:params.water_profile_name,volume_l:1000,concentrate_factor:params.concentrate_factor,dose_ratio:params.dose_ratio});setCr(full)
@@ -12,7 +12,7 @@ return(<div><div className="page-header"><h1 className="page-title">{t('dil.titl
 <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
 <div className="card"><div className="card-title">{t('dil.card_stock')}</div><div className="form-grid">
 <div className="form-group"><label className="form-label">{t('c.recipe')}</label><select className="form-select" value={params.recipe_name} onChange={e=>set('recipe_name',e.target.value)}>{recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div>
-<div className="form-group"><label className="form-label">{t('c.water_profile')}</label><select className="form-select" value={params.water_profile_name} onChange={e=>set('water_profile_name',e.target.value)}>{wp.map(w=><option key={w.name} value={w.name}>{w.name}</option>)}</select></div>
+<div className="form-group"><label className="form-label">{t('c.water_profile')}</label><select className="form-select" value={params.water_profile_name} onChange={e=>set('water_profile_name',e.target.value)}>{wp.map(w=><option key={w.name} value={w.name}>{td(w.name)}</option>)}</select></div>
 <div className="form-group"><label className="form-label">{t('c.conc_factor')}</label><input className="form-input" type="number" value={params.concentrate_factor} onChange={e=>set('concentrate_factor',Number(e.target.value))}/></div></div></div>
 <div className="card"><div className="card-title">{t('dil.card_dilution')}</div><div className="form-grid">
 <div className="form-group"><label className="form-label">{t('dil.target_ec')}</label><input className="form-input" type="number" step="0.1" value={params.target_ec} onChange={e=>set('target_ec',Number(e.target.value))}/></div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useI18n } from '../hooks/useI18n'
 import { fetchAcids, fetchBases, fetchRecipes, fetchWaterProfiles, calcPhCorrection, calculate } from '../api'
 const BI=[{ion:'H2PO4',name:'H₂PO₄⁻/HPO₄²⁻',pka:7.2,color:'#d45f5f'},{ion:'NH4',name:'NH₄⁺/NH₃',pka:9.25,color:'#e0a458'},{ion:'HCO3',name:'HCO₃⁻/CO₃²⁻',pka:6.35,color:'#5b9bd5'},{ion:'SO4',name:'SO₄²⁻',pka:null,color:'#c77dba'}]
-export default function PhCorrection(){const{t}=useI18n();const[acids,setAcids]=useState([]);const[recipes,setRecipes]=useState([]);const[wp,setWp]=useState([])
+export default function PhCorrection(){const{t,td}=useI18n();const[acids,setAcids]=useState([]);const[recipes,setRecipes]=useState([]);const[wp,setWp]=useState([])
 const[params,setParams]=useState({water_hco3_mg:140,water_ph:7.4,target_ph:5.8,volume_l:1000,acid_name:'HNO3_65',base_name:null})
 const[result,setResult]=useState(null);const[loading,setLoading]=useState(false);const[sr,setSr]=useState('');const[sw,setSw]=useState('');const[bd,setBd]=useState(null)
 useEffect(()=>{Promise.all([fetchAcids(),fetchBases(),fetchRecipes(),fetchWaterProfiles()]).then(([a,b,r,w])=>{setAcids(a);setRecipes(r);setWp(w)})},[])
@@ -22,7 +22,7 @@ return(<div><div className="page-header"><h1 className="page-title">{t('ph.title
 <div className="form-group"><label className="form-label">{t('ph.target_ph')}</label><input className="form-input" type="number" step="0.1" value={params.target_ph} onChange={e=>set('target_ph',Number(e.target.value))}/></div>
 <div className="form-group"><label className="form-label">{t('c.volume_l')}</label><input className="form-input" type="number" value={params.volume_l} onChange={e=>set('volume_l',Number(e.target.value))}/></div></div></div>
 <div className="card"><div className="card-title">{t('ph.card_acid_base')}</div><div className="form-group"><label className="form-label">{t('ph.acid')}</label>
-<select className="form-select" value={params.acid_name} onChange={e=>set('acid_name',e.target.value)}>{acids.map(a=><option key={a.key} value={a.key}>{a.name} ({a.formula})</option>)}</select></div></div></div>
+<select className="form-select" value={params.acid_name} onChange={e=>set('acid_name',e.target.value)}>{acids.map(a=><option key={a.key} value={a.key}>{td(a.name)} ({a.formula})</option>)}</select></div></div></div>
 <div style={{marginBottom:24}}><button className="btn btn-primary" onClick={doC} disabled={loading}>{loading?<span className="spinner"/>:null} {t('ph.btn')}</button></div>
 {result&&(<div><div className="card"><div className="card-title">{t('ph.card_result')}</div><div className="stats-grid">
 {result.acid_ml>0&&(<><div className="stat-item"><div className="stat-label">{result.acid_name}</div><div className="stat-value">{fmt(result.acid_ml_per_l,3)} mL/L</div></div>
@@ -39,7 +39,7 @@ return(<div><div className="page-header"><h1 className="page-title">{t('ph.title
 <div className="form-grid"><div className="form-group"><label className="form-label">{t('c.recipe')}</label>
 <select className="form-select" value={sr} onChange={e=>setSr(e.target.value)}><option value="">{t('ph.buf_select')}</option>{recipes.map(r=><option key={r.name} value={r.name}>{r.name}</option>)}</select></div>
 <div className="form-group"><label className="form-label">{t('c.water_profile')}</label>
-<select className="form-select" value={sw} onChange={e=>setSw(e.target.value)}><option value="">Osmosewasser</option>{wp.map(w=><option key={w.name} value={w.name}>{w.name}</option>)}</select></div></div>
+<select className="form-select" value={sw} onChange={e=>setSw(e.target.value)}><option value="">Osmosewasser</option>{wp.map(w=><option key={w.name} value={w.name}>{td(w.name)}</option>)}</select></div></div>
 <button className="btn btn-primary" style={{marginTop:12}} onClick={calcB} disabled={!sr}>{t('ph.buf_btn')}</button>
 {bd&&(<div style={{marginTop:16}}><div className="stats-grid" style={{marginBottom:14}}>
 <div className="stat-item"><div className="stat-label">{t('ph.buf_total')}</div><div className="stat-value" style={{fontSize:14}}>{fmt(bd.totalBuffer,4)} mol/L·pH</div></div>

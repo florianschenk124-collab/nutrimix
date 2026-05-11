@@ -13,7 +13,7 @@ const WATER_IONS = [
 const EMPTY = { name: '', ca: 0, mg: 0, na: 0, k: 0, cl: 0, so4: 0, hco3: 0, no3: 0, fe: 0, ec: 0, ph: 7.0 }
 
 export default function WaterProfiles() {
-  const { t } = useI18n()
+  const { t, td } = useI18n()
   const [profiles, setProfiles] = useState([])
   const [selected, setSelected] = useState(null)
   const [editing, setEditing] = useState(null)
@@ -155,7 +155,7 @@ export default function WaterProfiles() {
               onClick={() => selectP(p)}
               style={{ width: '100%', margin: '1px 0' }}>
               <span className="nav-icon">{p.is_custom ? '⭐' : '💧'}</span>
-              <span style={{ fontSize: 12 }}>{p.name}</span>
+              <span style={{ fontSize: 12 }}>{td(p.name)}</span>
             </button>
           ))}
         </div>

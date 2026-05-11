@@ -76,8 +76,8 @@ export default function Settings() {
           <div className="form-group">
             <label className="form-label">{t('settings.ec_method')}</label>
             <select className="form-select" value={settings.ec_method} onChange={e => set('ec_method', e.target.value)}>
-              <option value="ionic">Ionenspezifisch (genauer)</option>
-              <option value="simple">TDS-basiert (schnell)</option>
+              <option value="ionic">{t('settings.ec_ionic_label')}</option>
+              <option value="simple">{t('settings.ec_simple_label')}</option>
             </select>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default function Settings() {
         <div className="card-title">{t('settings.card_salts')}</div>
         <div className="form-grid">
           <div className="form-group">
-            <label className="form-label">Fe-Chelat:</label>
+            <label className="form-label">{t('settings.fe_label')}</label>
             <select className="form-select" value={settings.fe_chelate} onChange={e => set('fe_chelate', e.target.value)}>
               <option value="Fe-DTPA">Fe-DTPA (11%)</option>
               <option value="Fe-EDTA">Fe-EDTA (13%)</option>
@@ -98,7 +98,7 @@ export default function Settings() {
             </select>
           </div>
           <div className="form-group">
-            <label className="form-label">NH₄-Quelle:</label>
+            <label className="form-label">{t('settings.nh4_label')}</label>
             <select className="form-select" value={settings.nh4_source} onChange={e => set('nh4_source', e.target.value)}>
               <option value="NH4NO3">NH₄NO₃</option>
               <option value="MAP">MAP (NH₄H₂PO₄)</option>
@@ -106,7 +106,7 @@ export default function Settings() {
             </select>
           </div>
           <div className="form-group">
-            <label className="form-label">P-Quelle:</label>
+            <label className="form-label">{t('settings.p_label')}</label>
             <select className="form-select" value={settings.p_source} onChange={e => set('p_source', e.target.value)}>
               <option value="KH2PO4">KH₂PO₄</option>
               <option value="MAP">MAP</option>

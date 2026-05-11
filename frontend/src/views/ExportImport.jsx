@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useI18n } from '../hooks/useI18n'
 import { fetchRecipes, fetchWaterProfiles, createRecipe, createWaterProfile } from '../api'
-export default function ExportImport(){const{t}=useI18n();const[recipes,setRecipes]=useState([]);const[wp,setWp]=useState([]);const[er,setEr]=useState('__all__');const[ew,setEw]=useState('__all__');const[it,setIt]=useState('');const[msg,setMsg]=useState('');const[im,setIm]=useState('')
+export default function ExportImport(){const{t,td}=useI18n();const[recipes,setRecipes]=useState([]);const[wp,setWp]=useState([]);const[er,setEr]=useState('__all__');const[ew,setEw]=useState('__all__');const[it,setIt]=useState('');const[msg,setMsg]=useState('');const[im,setIm]=useState('')
 const reload=()=>{Promise.all([fetchRecipes(),fetchWaterProfiles()]).then(([r,w])=>{setRecipes(r);setWp(w)})};useEffect(reload,[])
 const dl=(d,f)=>{const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=f;a.click();URL.revokeObjectURL(u)}
 const exR=()=>{const d=er==='__all__'?recipes:recipes.filter(r=>r.name===er);dl(d,'nutrientmixer_recipes.json');setMsg(`${d.length} ${t('export.msg_recipes')}`)}

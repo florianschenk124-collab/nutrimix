@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useI18n } from '../hooks/useI18n'
 import { fetchRecipes } from '../api'
 const ALL_IONS=['NO3','NH4','H2PO4','K','Ca','Mg','SO4','Fe','Mn','Zn','Cu','B','Mo']
-export default function RecipeCompare(){const{t}=useI18n();const[recipes,setRecipes]=useState([]);const[nameA,setNameA]=useState('');const[nameB,setNameB]=useState('');const[compared,setCompared]=useState(null)
+export default function RecipeCompare(){const{t,td}=useI18n();const[recipes,setRecipes]=useState([]);const[nameA,setNameA]=useState('');const[nameB,setNameB]=useState('');const[compared,setCompared]=useState(null)
 useEffect(()=>{fetchRecipes().then(r=>{setRecipes(r);if(r.length>=2){setNameA(r[0].name);setNameB(r[1].name)}else if(r.length===1){setNameA(r[0].name);setNameB(r[0].name)}})},[])
 const doC=()=>{const a=recipes.find(r=>r.name===nameA),b=recipes.find(r=>r.name===nameB);if(a&&b)setCompared({a,b})}
 const fmt=v=>v>0?Number(v).toFixed(2):'–'

@@ -3,7 +3,7 @@ import { useI18n } from '../hooks/useI18n'
 import { fetchRecipes, fetchWaterProfiles, fetchPremixes, calculate } from '../api'
 
 export default function Calculator() {
-  const { t } = useI18n()
+  const { t, td } = useI18n()
   const [recipes, setRecipes] = useState([])
   const [waterProfiles, setWaterProfiles] = useState([])
   const [premixes, setPremixes] = useState([])
@@ -44,7 +44,7 @@ export default function Calculator() {
               {recipes.map(r => <option key={r.name} value={r.name}>{r.is_custom ? '⭐ ' : ''}{r.name}</option>)}</select></div>
           <div className="form-group"><label className="form-label">{t('c.water_profile')}</label>
             <select className="form-select" value={params.water_profile_name} onChange={e => set('water_profile_name', e.target.value)}>
-              {waterProfiles.map(w => <option key={w.name} value={w.name}>{w.name}</option>)}</select></div></div></div>
+              {waterProfiles.map(w => <option key={w.name} value={w.name}>{td(w.name)}</option>)}</select></div></div></div>
       <div className="card"><div className="card-title">{t('calc.card_params')}</div>
         <div className="form-grid">
           <div className="form-group"><label className="form-label">{t('c.volume_l')}</label><input className="form-input" type="number" value={params.volume_l} onChange={e => set('volume_l', Number(e.target.value))} /></div>
@@ -114,6 +114,6 @@ export default function Calculator() {
 }
 function TankCard({t,label,tank,salts}){return(<div className="card"><div className="tank-header"><span className={`tank-badge tank-${tank}`}>{tank.toUpperCase()}</span><span className="tank-label">{label}</span></div>
   <table className="result-table"><thead><tr><th>{t('calc.col_salt')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_l')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_total')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_tank')}</th></tr></thead>
-    <tbody>{salts.map(s=>(<tr key={s.salt_formula}><td>{s.salt_name}</td><td className="num">{Number(s.g_per_l).toFixed(4)}</td><td className="num">{Number(s.g_total).toFixed(1)}</td><td className="num" style={{fontWeight:600}}>{Number(s.g_concentrate).toFixed(1)}</td></tr>))}</tbody></table></div>)}
+    <tbody>{salts.map(s=>(<tr key={s.salt_formula}><td>{td(s.salt_name)}</td><td className="num">{Number(s.g_per_l).toFixed(4)}</td><td className="num">{Number(s.g_total).toFixed(1)}</td><td className="num" style={{fontWeight:600}}>{Number(s.g_concentrate).toFixed(1)}</td></tr>))}</tbody></table></div>)}
 function SI({label,value,className=''}){return <div className="stat-item"><div className="stat-label">{label}</div><div className={`stat-value ${className}`}>{value}</div></div>}
 function CC({title,open,onToggle,children}){return(<div className="card"><div className="collapsible-header" onClick={onToggle}><div className="card-title" style={{marginBottom:0}}>{title}</div><span className={`collapse-icon ${open?'open':''}`}>▼</span></div>{open&&<div style={{marginTop:14}}>{children}</div>}</div>)}

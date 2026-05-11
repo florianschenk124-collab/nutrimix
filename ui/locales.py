@@ -410,6 +410,20 @@ TRANSLATIONS = {
 
     # ── Alpha Banner ──
     "alpha.disclaimer": {"de": "Dies ist eine Alpha-Version. Berechnungen können Fehler enthalten. Ergebnisse immer unabhängig prüfen, bevor sie in der Praxis eingesetzt werden.", "en": "This is an alpha version. Calculations may contain errors. Always verify results independently before use in production."},
+
+    # ── Additional EN keys for views ──
+    "recipes.stat_n_total": {"de": "N gesamt", "en": "Total N"},
+    "recipes.stat_source": {"de": "Quelle", "en": "Source"},
+    "recipes.card_macros": {"de": "Makronährstoffe (mg/L)", "en": "Macronutrients (mg/L)"},
+    "recipes.card_micros": {"de": "Mikronährstoffe (mg/L)", "en": "Micronutrients (mg/L)"},
+    "settings.ec_ionic_label": {"de": "Ionenspezifisch (genauer)", "en": "Ion-specific (accurate)"},
+    "settings.ec_simple_label": {"de": "TDS-basiert (schnell)", "en": "TDS-based (fast)"},
+    "settings.fe_label": {"de": "Fe-Chelat:", "en": "Fe Chelate:"},
+    "settings.nh4_label": {"de": "NH₄-Quelle:", "en": "NH₄ Source:"},
+    "settings.p_label": {"de": "P-Quelle:", "en": "P Source:"},
+    "settings.dose_label": {"de": "Dosierverhältnis A:B:", "en": "Dosing Ratio A:B:"},
+    "salts.count": {"de": "Salze", "en": "Salts"},
+    "recipes.plants_label": {"de": "Geeignete Pflanzen", "en": "Suitable Plants"},
 }
 
 def t(key: str) -> str:
@@ -1059,6 +1073,42 @@ DATA_TRANSLATIONS = {
     "Hoher Ca- und S-Bedarf, Bor wichtig": {"en": "High Ca and S demand, boron important"},
     "Verträgt höhere EC als Salat, Fe-Bedarf beachten": {
         "en": "Tolerates higher EC than lettuce, watch Fe demand"},
+    # ── Acid/Base names (exact API strings) ──
+    "Salpetersäure 65%": {"en": "Nitric Acid 65%"},
+    "Salpetersäure 38%": {"en": "Nitric Acid 38%"},
+    "Phosphorsäure 85%": {"en": "Phosphoric Acid 85%"},
+    "Schwefelsäure 96%": {"en": "Sulfuric Acid 96%"},
+    "Schwefelsäure 37%": {"en": "Sulfuric Acid 37%"},
+    "Kaliumhydroxid (Feststoff)": {"en": "Potassium Hydroxide (solid)"},
+    "Kaliumcarbonat (Pottasche)": {"en": "Potassium Carbonate (Potash)"},
+    "Natronlauge (Feststoff)": {"en": "Sodium Hydroxide (solid)"},
+    # ── Plant names with emojis ──
+    "🍅 Tomate": {"en": "🍅 Tomato"},
+    "🥒 Gurke": {"en": "🥒 Cucumber"},
+    "🫑 Paprika": {"en": "🫑 Bell Pepper"},
+    "🥬 Salat": {"en": "🥬 Lettuce"},
+    "🌿 Basilikum": {"en": "🌿 Basil"},
+    "🍓 Erdbeere": {"en": "🍓 Strawberry"},
+    "🌶️ Chili": {"en": "🌶️ Chili"},
+    "🥦 Brokkoli": {"en": "🥦 Broccoli"},
+    "🍃 Spinat": {"en": "🍃 Spinach"},
+    "🌱 Koriander": {"en": "🌱 Coriander"},
+    # ── Plant category names ──
+    "Fruchtgemüse": {"en": "Fruiting Vegetables"},
+    "Blattgemüse": {"en": "Leafy Greens"},
+    "Kohlgemüse": {"en": "Brassicas"},
+    "Kräuter": {"en": "Herbs"},
+    "Wurzelgemüse": {"en": "Root Vegetables"},
+    "Beeren": {"en": "Berries"},
+    "Sonstiges": {"en": "Other"},
+    # ── Recipe plant tags ──
+    "Universell": {"en": "Universal"},
+    "Tomate": {"en": "Tomato"},
+    "Gurke": {"en": "Cucumber"},
+    "Paprika": {"en": "Pepper"},
+    "Salat": {"en": "Lettuce"},
+    "Spinat": {"en": "Spinach"},
+    "Erdbeere": {"en": "Strawberry"},
 }
 
 def td(text: str) -> str:

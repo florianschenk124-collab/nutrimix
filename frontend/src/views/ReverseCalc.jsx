@@ -3,7 +3,7 @@ import { useI18n } from '../hooks/useI18n'
 import { fetchSalts, calcReverse } from '../api'
 
 export default function ReverseCalc() {
-  const { t } = useI18n()
+  const { t, td } = useI18n()
   const [allSalts, setAllSalts] = useState([])
   const [entries, setEntries] = useState([])
   const [volumeL, setVolumeL] = useState(100)
@@ -78,7 +78,7 @@ export default function ReverseCalc() {
               <select className="form-select" value={addFormula}
                 onChange={e => setAddFormula(e.target.value)}>
                 {allSalts.map(s => (
-                  <option key={s.formula} value={s.formula}>{s.name}</option>
+                  <option key={s.formula} value={s.formula}>{td(s.name)}</option>
                 ))}
               </select>
             </div>
@@ -119,7 +119,7 @@ export default function ReverseCalc() {
             <tbody>
               {entries.map((e, i) => (
                 <tr key={i}>
-                  <td>{e.salt_name}</td>
+                  <td>{td(e.salt_name)}</td>
                   <td className="num">{fmt(e.grams, 1)}</td>
                   <td className="num" style={{ color: 'var(--text-secondary)' }}>
                     {fmt(e.grams / volumeL, 4)}

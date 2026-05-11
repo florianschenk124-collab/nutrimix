@@ -6,7 +6,7 @@ const MACRO_IONS = ['NO3', 'NH4', 'H2PO4', 'K', 'Ca', 'Mg', 'SO4']
 const MICRO_IONS = ['Fe', 'Mn', 'Zn', 'Cu', 'B', 'Mo']
 
 export default function Recipes() {
-  const { t } = useI18n()
+  const { t, td } = useI18n()
   const [recipes, setRecipes] = useState([])
   const [selected, setSelected] = useState(null)
   const [filter, setFilter] = useState('all')
@@ -80,20 +80,20 @@ export default function Recipes() {
                     onClick={() => handleDelete(selected.name)}>🗑</button>
                 )}
               </div>
-              <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 12 }}>{selected.description}</p>
+              <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 12 }}>{td(selected.description)}</p>
               <div className="stats-grid" style={{ marginBottom: 16 }}>
                 <StatItem label="pH" value={`${selected.ph_min} – ${selected.ph_max}`} />
                 <StatItem label="EC" value={selected.ec_target > 0 ? `${selected.ec_target} mS/cm` : '–'} />
-                <StatItem label="N gesamt" value={`${fmt(selected.total_n)} mg/L`} />
-                {selected.source && <StatItem label="Quelle" value={selected.source} />}
+                <StatItem label={t('recipes.stat_n_total')} value={`${fmt(selected.total_n)} mg/L`} />
+                {selected.source && <StatItem label={t('recipes.stat_source')} value={selected.source} />}
               </div>
               {selected.suitable_plants.length > 0 && (
-                <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>🌱 {selected.suitable_plants.join(', ')}</div>
+                <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>🌱 {selected.suitable_plants.map(p=>td(p)).join(', ')}</div>
               )}
             </div>
 
             <div className="card">
-              <div className="card-title">Makronährstoffe (mg/L)</div>
+              <div className="card-title">{t('recipes.card_macros')}</div>
               <table className="result-table">
                 <thead><tr><th>Ion</th><th style={{ textAlign: 'right' }}>mg/L</th><th style={{ textAlign: 'right' }}>mmol/L</th></tr></thead>
                 <tbody>
@@ -109,7 +109,7 @@ export default function Recipes() {
             </div>
 
             <div className="card">
-              <div className="card-title">Mikronährstoffe (mg/L)</div>
+              <div className="card-title">{t('recipes.card_micros')}</div>
               <table className="result-table">
                 <thead><tr><th>Ion</th><th style={{ textAlign: 'right' }}>mg/L</th><th style={{ textAlign: 'right' }}>mmol/L</th></tr></thead>
                 <tbody>

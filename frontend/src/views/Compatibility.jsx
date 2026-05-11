@@ -3,7 +3,7 @@ import { useI18n } from '../hooks/useI18n'
 import { fetchCompatibilityMatrix } from '../api'
 const SC={ok:'var(--success)',info:'var(--info)',warning:'var(--warning)',critical:'var(--error)'}
 const SB={ok:'rgba(94,189,122,0.1)',info:'rgba(91,155,213,0.1)',warning:'rgba(224,164,88,0.1)',critical:'rgba(212,95,95,0.1)'}
-export default function Compatibility(){const{t}=useI18n();const[data,setData]=useState(null);const[loading,setLoading]=useState(true);const[filter,setFilter]=useState('all')
+export default function Compatibility(){const{t,td}=useI18n();const[data,setData]=useState(null);const[loading,setLoading]=useState(true);const[filter,setFilter]=useState('all')
 useEffect(()=>{fetchCompatibilityMatrix().then(setData).finally(()=>setLoading(false))},[])
 if(loading)return<div className="placeholder-view"><span className="spinner"/></div>;if(!data)return null
 const filtered=filter==='all'?data.checks:data.checks.filter(c=>c.severity===filter)
@@ -22,7 +22,7 @@ return(<div><div className="page-header"><h1 className="page-title">{t('compat.t
 <th style={{padding:'10px 14px'}}>{t('calc.col_status')}</th><th style={{padding:'10px 14px'}}>{t('compat.col_precip')}</th>
 <th style={{padding:'10px 14px'}}>{t('compat.col_desc')}</th></tr></thead>
 <tbody>{filtered.map((c,i)=>(<tr key={i} style={{background:SB[c.severity]||undefined}}>
-<td style={{padding:'7px 14px',fontSize:12}}>{c.salt_a}</td><td style={{padding:'7px 14px',fontSize:12}}>{c.salt_b}</td>
+<td style={{padding:'7px 14px',fontSize:12}}>{td(c.salt_a)}</td><td style={{padding:'7px 14px',fontSize:12}}>{td(c.salt_b)}</td>
 <td style={{padding:'7px 14px'}}><span style={{fontSize:11,fontWeight:600,color:SC[c.severity],textTransform:'uppercase'}}>{c.severity}</span></td>
 <td style={{padding:'7px 14px',fontFamily:'var(--font-mono)',fontSize:12}}>{c.precipitate||'–'}</td>
-<td style={{padding:'7px 14px',fontSize:12,color:'var(--text-secondary)'}}>{c.reason}</td></tr>))}</tbody></table></div></div>)}
+<td style={{padding:'7px 14px',fontSize:12,color:'var(--text-secondary)'}}>{td(c.reason)}</td></tr>))}</tbody></table></div></div>)}

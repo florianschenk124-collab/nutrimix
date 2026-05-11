@@ -11,7 +11,7 @@ const CATEGORIES = [
 ]
 
 export default function SaltDatabase() {
-  const { t } = useI18n()
+  const { t, td } = useI18n()
   const [salts, setSalts] = useState([])
   const [filter, setFilter] = useState('')
   const [search, setSearch] = useState('')
@@ -58,7 +58,7 @@ export default function SaltDatabase() {
         ))}
         <input className="form-input" placeholder={t('c.search_salt')} value={search}
           onChange={e => setSearch(e.target.value)} style={{ maxWidth: 200, marginLeft: 'auto' }} />
-        <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>{filtered.length} Salze</span>
+        <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>{filtered.length} {t('salts.count')}</span>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 350px' : '1fr', gap: 16 }}>
@@ -77,7 +77,7 @@ export default function SaltDatabase() {
                   cursor: 'pointer',
                   background: selected?.formula === s.formula ? 'var(--accent-bg)' : undefined,
                 }}>
-                  <td style={{ padding: '7px 14px', fontWeight: 500 }}>{s.name}</td>
+                  <td style={{ padding: '7px 14px', fontWeight: 500 }}>{td(s.name)}</td>
                   <td style={{ padding: '7px 14px', fontFamily: 'var(--font-mono)', fontSize: 12 }}>{s.formula}</td>
                   <td className="num" style={{ padding: '7px 14px' }}>{fmt(s.molar_mass)}</td>
                   <td className="num" style={{ padding: '7px 14px' }}>{fmt(s.solubility_20, 0)}</td>
@@ -114,7 +114,7 @@ export default function SaltDatabase() {
                 ))}
               </tbody>
             </table>
-            {selected.notes && <div className="alert alert-info" style={{ marginTop: 12, fontSize: 12 }}>{selected.notes}</div>}
+            {selected.notes && <div className="alert alert-info" style={{ marginTop: 12, fontSize: 12 }}>{td(selected.notes)}</div>}
           </div>
         )}
       </div>

@@ -4,7 +4,7 @@ import { fetchRecipes, createRecipe } from '../api'
 const MF=[{key:'no3_n',label:'NO₃-N'},{key:'nh4_n',label:'NH₄-N'},{key:'p',label:'P'},{key:'k',label:'K'},{key:'ca',label:'Ca'},{key:'mg',label:'Mg'},{key:'s',label:'S'}]
 const MIF=[{key:'fe',label:'Fe'},{key:'mn',label:'Mn'},{key:'zn',label:'Zn'},{key:'cu',label:'Cu'},{key:'b',label:'B'},{key:'mo',label:'Mo'}]
 const E={name:'',description:'',no3_n:0,nh4_n:0,p:0,k:0,ca:0,mg:0,s:0,fe:0,mn:0,zn:0,cu:0,b:0,mo:0,ph_min:5.5,ph_max:6.5,ec_target:0,suitable_plants:[],source:''}
-export default function RecipeEditor(){const{t}=useI18n();const[recipes,setRecipes]=useState([]);const[form,setForm]=useState({...E});const[template,setTemplate]=useState('');const[plantsStr,setPlantsStr]=useState('');const[saving,setSaving]=useState(false);const[msg,setMsg]=useState('')
+export default function RecipeEditor(){const{t,td}=useI18n();const[recipes,setRecipes]=useState([]);const[form,setForm]=useState({...E});const[template,setTemplate]=useState('');const[plantsStr,setPlantsStr]=useState('');const[saving,setSaving]=useState(false);const[msg,setMsg]=useState('')
 useEffect(()=>{fetchRecipes().then(setRecipes)},[])
 const set=(k,v)=>setForm(prev=>({...prev,[k]:v}))
 const loadT=(name)=>{setTemplate(name);if(!name){setForm({...E});setPlantsStr('');return};const r=recipes.find(x=>x.name===name);if(r){setForm({name:r.name+' (Copy)',description:r.description,no3_n:r.no3_n,nh4_n:r.nh4_n,p:r.p,k:r.k,ca:r.ca,mg:r.mg,s:r.s,fe:r.fe,mn:r.mn,zn:r.zn,cu:r.cu,b:r.b,mo:r.mo,ph_min:r.ph_min,ph_max:r.ph_max,ec_target:r.ec_target,suitable_plants:r.suitable_plants,source:r.source});setPlantsStr(r.suitable_plants.join(', '))}}
