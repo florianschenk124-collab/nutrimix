@@ -373,4 +373,5 @@ class SettingsModel(BaseModel):
     p_source: str = "KH2PO4"
     micro_source: str = "individual"
     dose_ratio: str = "1:1"
-    language: str = "de"
+    language: str = "en"
+    display_mode: str = "formula"  # "formula" or "name"

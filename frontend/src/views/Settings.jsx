@@ -3,23 +3,30 @@ import { useI18n } from '../hooks/useI18n'
 import { fetchSettings, updateSettings } from '../api'
 
 export default function Settings() {
-  const { t, setLang } = useI18n()
+  const { t, td, lang, setLang, displayMode, setDisplayMode } = useI18n()
   const [settings, setSettings] = useState(null)
   const [saving, setSaving] = useState(false)
   const [msg, setMsg] = useState('')
 
-  useEffect(() => { fetchSettings().then(setSettings) }, [])
+  useEffect(() => {
+    fetchSettings().then(s => {
+      setSettings(s)
+      if (s.display_mode) setDisplayMode(s.display_mode)
+      if (s.language) setLang(s.language)
+    })
+  }, [])
 
   const set = (key, val) => setSettings(prev => ({ ...prev, [key]: val }))
 
   const save = async () => {
     setSaving(true)
     try {
-      await updateSettings(settings)
+      const toSave = { ...settings, display_mode: displayMode }
+      await updateSettings(toSave)
       setLang(settings.language)
       setMsg(t('settings.saved'))
       setTimeout(() => setMsg(''), 3000)
-    } catch (e) { setMsg('Fehler: ' + e.message) }
+    } catch (e) { setMsg(t('gen.error') + ': ' + e.message) }
     setSaving(false)
   }
 
@@ -32,7 +39,7 @@ export default function Settings() {
         <p className="page-subtitle">{t('settings.subtitle')}</p>
       </div>
 
-      {/* Sprache */}
+      {/* Sprache + Anzeige */}
       <div className="card">
         <div className="card-title">{t('settings.card_lang')}</div>
         <div className="form-grid">
@@ -41,6 +48,13 @@ export default function Settings() {
             <select className="form-select" value={settings.language} onChange={e => set('language', e.target.value)}>
               <option value="de">🇩🇪 Deutsch</option>
               <option value="en">🇬🇧 English</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label className="form-label">{t('settings.display_mode')}</label>
+            <select className="form-select" value={displayMode} onChange={e => setDisplayMode(e.target.value)}>
+              <option value="formula">{t('settings.display_formula')}</option>
+              <option value="name">{t('settings.display_name')}</option>
             </select>
           </div>
         </div>
@@ -69,7 +83,7 @@ export default function Settings() {
         </div>
       </div>
 
-      {/* EC-Schätzung */}
+      {/* EC */}
       <div className="card">
         <div className="card-title">{t('settings.card_ec')}</div>
         <div className="form-grid">
@@ -84,7 +98,7 @@ export default function Settings() {
         <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 6, whiteSpace: 'pre-line' }}>{t('settings.ec_hint')}</div>
       </div>
 
-      {/* Standard-Salzauswahl */}
+      {/* Salze */}
       <div className="card">
         <div className="card-title">{t('settings.card_salts')}</div>
         <div className="form-grid">
@@ -114,7 +128,7 @@ export default function Settings() {
             </select>
           </div>
           <div className="form-group">
-            <label className="form-label">{t('c.dose_ratio')}</label>
+            <label className="form-label">{t('settings.dose_label')}</label>
             <select className="form-select" value={settings.dose_ratio} onChange={e => set('dose_ratio', e.target.value)}>
               <option value="1:1">1:1</option>
               <option value="2:3">2:3</option>

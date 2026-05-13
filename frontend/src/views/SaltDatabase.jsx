@@ -77,7 +77,7 @@ export default function SaltDatabase() {
                   cursor: 'pointer',
                   background: selected?.formula === s.formula ? 'var(--accent-bg)' : undefined,
                 }}>
-                  <td style={{ padding: '7px 14px', fontWeight: 500 }}>{td(s.name)}</td>
+                  <td style={{ padding: '7px 14px', fontWeight: 500 }}>{sd(s.name,s.formula)}</td>
                   <td style={{ padding: '7px 14px', fontFamily: 'var(--font-mono)', fontSize: 12 }}>{s.formula}</td>
                   <td className="num" style={{ padding: '7px 14px' }}>{fmt(s.molar_mass)}</td>
                   <td className="num" style={{ padding: '7px 14px' }}>{fmt(s.solubility_20, 0)}</td>

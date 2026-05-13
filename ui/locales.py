@@ -424,6 +424,9 @@ TRANSLATIONS = {
     "settings.nh4_label": {"de": "NH₄-Quelle:", "en": "NH₄ Source:"},
     "settings.p_label": {"de": "P-Quelle:", "en": "P Source:"},
     "settings.dose_label": {"de": "Dosierverhältnis A:B:", "en": "Dosing Ratio A:B:"},
+    "settings.display_mode": {"de": "Salz-Anzeige:", "en": "Salt Display:"},
+    "settings.display_formula": {"de": "Summenformeln (Ca(NO₃)₂·4H₂O)", "en": "Chemical Formulas (Ca(NO₃)₂·4H₂O)"},
+    "settings.display_name": {"de": "Klarnamen (Calciumnitrat-Tetrahydrat)", "en": "Common Names (Calcium Nitrate Tetrahydrate)"},
     "salts.count": {"de": "Salze", "en": "Salts"},
     "recipes.plants_label": {"de": "Geeignete Pflanzen", "en": "Suitable Plants"},
 }

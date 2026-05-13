@@ -3,7 +3,7 @@ import { useI18n } from '../hooks/useI18n'
 import { fetchRecipes, fetchWaterProfiles, fetchPremixes, calculate } from '../api'
 
 export default function Calculator() {
-  const { t, td } = useI18n()
+  const { t, td, sd } = useI18n()
   const [recipes, setRecipes] = useState([])
   const [waterProfiles, setWaterProfiles] = useState([])
   const [premixes, setPremixes] = useState([])
@@ -77,8 +77,8 @@ export default function Calculator() {
 
     {result && (<div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-        <TankCard t={t} td={td} label={t('calc.tank_a')} tank="a" salts={result.tank_a} />
-        <TankCard t={t} td={td} label={t('calc.tank_b')} tank="b" salts={result.tank_b} /></div>
+        <TankCard t={t} td={td} sd={sd} label={t('calc.tank_a')} tank="a" salts={result.tank_a} />
+        <TankCard t={t} td={td} sd={sd} label={t('calc.tank_b')} tank="b" salts={result.tank_b} /></div>
       <CC title={t('calc.summary')} open={sections.summary} onToggle={() => toggle('summary')}>
         <div className="stats-grid">
           <SI label={t('c.ec_estimated')} value={`${fmt(result.ec_ionic)} mS/cm`} className={result.ec_rating?.includes('✅') ? 'success' : 'warning'} />
@@ -103,7 +103,7 @@ export default function Calculator() {
       <CC title={t('calc.solubility')} open={sections.solubility} onToggle={() => toggle('solubility')}>
         <table className="result-table"><thead><tr><th>{t('calc.col_salt')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_conc')}</th>
           <th style={{textAlign:'right'}}>{t('calc.col_solubility')}</th><th style={{textAlign:'right'}}>{t('calc.col_saturation')}</th><th>{t('calc.col_status')}</th></tr></thead>
-          <tbody>{result.solubility_checks.map(c=>(<tr key={c.salt_name}><td>{c.salt_name}</td>
+          <tbody>{result.solubility_checks.map(c=>(<tr key={c.salt_name}><td>{sd(c.salt_name,c.formula||c.salt_name)}</td>
             <td className="num">{fmt(c.g_per_l_concentrate,1)}</td><td className="num">{fmt(c.solubility_limit,0)}</td>
             <td className="num" style={{color:c.saturation_pct>80?'var(--warning)':c.is_ok?'var(--text-primary)':'var(--error)'}}>{fmt(c.saturation_pct,1)}%</td>
             <td>{c.is_ok?(c.saturation_pct>70?'⚠️':'✅'):'⛔'}</td></tr>))}</tbody></table></CC>
@@ -114,8 +114,8 @@ export default function Calculator() {
       <CC title={t('calc.protocol')} open={sections.protocol} onToggle={() => toggle('protocol')}>
         {result.steps.map((s,i)=><div className="protocol-step" key={i}>{s}</div>)}</CC></div>)}</div>)
 }
-function TankCard({t,td,label,tank,salts}){return(<div className="card"><div className="tank-header"><span className={`tank-badge tank-${tank}`}>{tank.toUpperCase()}</span><span className="tank-label">{label}</span></div>
+function TankCard({t,td,sd,label,tank,salts}){return(<div className="card"><div className="tank-header"><span className={`tank-badge tank-${tank}`}>{tank.toUpperCase()}</span><span className="tank-label">{label}</span></div>
   <table className="result-table"><thead><tr><th>{t('calc.col_salt')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_l')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_total')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_tank')}</th></tr></thead>
-    <tbody>{salts.map(s=>(<tr key={s.salt_formula}><td>{td(s.salt_name)}</td><td className="num">{Number(s.g_per_l).toFixed(4)}</td><td className="num">{Number(s.g_total).toFixed(1)}</td><td className="num" style={{fontWeight:600}}>{Number(s.g_concentrate).toFixed(1)}</td></tr>))}</tbody></table></div>)}
+    <tbody>{salts.map(s=>(<tr key={s.salt_formula}><td>{sd(s.salt_name,s.salt_formula)}</td><td className="num">{Number(s.g_per_l).toFixed(4)}</td><td className="num">{Number(s.g_total).toFixed(1)}</td><td className="num" style={{fontWeight:600}}>{Number(s.g_concentrate).toFixed(1)}</td></tr>))}</tbody></table></div>)}
 function SI({label,value,className=''}){return <div className="stat-item"><div className="stat-label">{label}</div><div className={`stat-value ${className}`}>{value}</div></div>}
 function CC({title,open,onToggle,children}){return(<div className="card"><div className="collapsible-header" onClick={onToggle}><div className="card-title" style={{marginBottom:0}}>{title}</div><span className={`collapse-icon ${open?'open':''}`}>▼</span></div>{open&&<div style={{marginTop:14}}>{children}</div>}</div>)}

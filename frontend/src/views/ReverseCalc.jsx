@@ -78,7 +78,7 @@ export default function ReverseCalc() {
               <select className="form-select" value={addFormula}
                 onChange={e => setAddFormula(e.target.value)}>
                 {allSalts.map(s => (
-                  <option key={s.formula} value={s.formula}>{td(s.name)}</option>
+                  <option key={s.formula} value={s.formula}>{sd(s.name,s.formula)}</option>
                 ))}
               </select>
             </div>
@@ -119,7 +119,7 @@ export default function ReverseCalc() {
             <tbody>
               {entries.map((e, i) => (
                 <tr key={i}>
-                  <td>{td(e.salt_name)}</td>
+                  <td>{sd(e.salt_name,e.salt_formula||e.salt_name)}</td>
                   <td className="num">{fmt(e.grams, 1)}</td>
                   <td className="num" style={{ color: 'var(--text-secondary)' }}>
                     {fmt(e.grams / volumeL, 4)}
