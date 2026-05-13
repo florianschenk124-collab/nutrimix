@@ -289,6 +289,8 @@ TRANSLATIONS = {
 
     # ── Calculator ──
     "calc.fe_label": {"de": "Fe-Chelat", "en": "Fe Chelate"},
+    "calc.fe_none": {"de": "– Kein Fe-Chelat –", "en": "– No Fe chelate –"},
+    "calc.fe_from_premix": {"de": "– Eisen aus Mikromix –", "en": "– Iron from micromix –"},
     "calc.nh4_label": {"de": "NH₄-Quelle", "en": "NH₄ Source"},
     "calc.p_label": {"de": "P-Quelle", "en": "P Source"},
     "calc.auto_info": {"de": "Ca-Quelle: Ca(NO₃)₂ · Mg-Quelle: MgSO₄ · K-Rest: K₂SO₄/KNO₃ · NO₃-Rest: KNO₃ – werden automatisch vom Solver gewählt.", "en": "Ca source: Ca(NO₃)₂ · Mg source: MgSO₄ · K remainder: K₂SO₄/KNO₃ · NO₃ remainder: KNO₃ – chosen automatically by the solver."},
@@ -458,6 +460,8 @@ TRANSLATIONS.update({
     "b.for_fe": {"de": "für Fe-Bedarf", "en": "for Fe demand"},
     "b.fe_via_premix": {"de": "Fe wird durch Premix ({}) in Schritt 7 gedeckt",
                         "en": "Fe covered by premix ({}) in step 7"},
+    "b.fe_no_premix_warn": {"de": "⚠️ 'Eisen aus Mikromix' gewählt, aber kein Premix als Mikroquelle aktiv. Fe wird nicht gedeckt!",
+                             "en": "⚠️ 'Iron from micromix' selected, but no premix is active as micro source. Fe will not be covered!"},
     "b.ca_demand": {"de": "Ca-Bedarf decken", "en": "cover Ca demand"},
     "b.delivers": {"de": "liefert", "en": "delivers"},
     "b.delivers_also": {"de": "liefert auch", "en": "also delivers"},

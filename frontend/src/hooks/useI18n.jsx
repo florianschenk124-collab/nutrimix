@@ -1,10 +1,10 @@
 import { useState, useEffect, createContext, useContext, useCallback } from 'react'
 import { fetchLocale } from '../api'
 
-const I18nContext = createContext({ t: (k) => k, td: (s) => s, lang: 'de', setLang: () => {} })
+const I18nContext = createContext({ t: (k) => k, td: (s) => s, lang: 'en', setLang: () => {} })
 
 export function I18nProvider({ children }) {
-  const [lang, setLang] = useState('de')
+  const [lang, setLang] = useState('en')
   const [translations, setTranslations] = useState({})
 
   useEffect(() => {

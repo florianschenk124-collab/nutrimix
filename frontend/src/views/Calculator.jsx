@@ -57,7 +57,9 @@ export default function Calculator() {
         <div className="form-group"><label className="form-label">{t('calc.fe_label')}</label>
           <select className="form-select" value={params.fe_chelate} onChange={e => set('fe_chelate', e.target.value)}>
             <option value="Fe-DTPA">Fe-DTPA (11%) – pH ≤7.0</option><option value="Fe-EDTA">Fe-EDTA (13%) – pH ≤6.0</option>
-            <option value="Fe-EDDHA">Fe-EDDHA (6%) – pH ≤11</option><option value="Fe-HBED">Fe-HBED (6%) – pH ≤12</option></select></div>
+            <option value="Fe-EDDHA">Fe-EDDHA (6%) – pH ≤11</option><option value="Fe-HBED">Fe-HBED (6%) – pH ≤12</option>
+            <option value="from_premix">{t('calc.fe_from_premix')}</option>
+            <option value="none">{t('calc.fe_none')}</option></select></div>
         <div className="form-group"><label className="form-label">{t('calc.nh4_label')}</label>
           <select className="form-select" value={params.nh4_source} onChange={e => set('nh4_source', e.target.value)}>
             <option value="NH4NO3">NH₄NO₃</option><option value="MAP">MAP – NH₄H₂PO₄ (+ P)</option><option value="DAP">DAP – (NH₄)₂HPO₄ (+ P)</option></select></div>
@@ -75,8 +77,8 @@ export default function Calculator() {
 
     {result && (<div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-        <TankCard t={t} label={t('calc.tank_a')} tank="a" salts={result.tank_a} />
-        <TankCard t={t} label={t('calc.tank_b')} tank="b" salts={result.tank_b} /></div>
+        <TankCard t={t} td={td} label={t('calc.tank_a')} tank="a" salts={result.tank_a} />
+        <TankCard t={t} td={td} label={t('calc.tank_b')} tank="b" salts={result.tank_b} /></div>
       <CC title={t('calc.summary')} open={sections.summary} onToggle={() => toggle('summary')}>
         <div className="stats-grid">
           <SI label={t('c.ec_estimated')} value={`${fmt(result.ec_ionic)} mS/cm`} className={result.ec_rating?.includes('✅') ? 'success' : 'warning'} />
@@ -112,7 +114,7 @@ export default function Calculator() {
       <CC title={t('calc.protocol')} open={sections.protocol} onToggle={() => toggle('protocol')}>
         {result.steps.map((s,i)=><div className="protocol-step" key={i}>{s}</div>)}</CC></div>)}</div>)
 }
-function TankCard({t,label,tank,salts}){return(<div className="card"><div className="tank-header"><span className={`tank-badge tank-${tank}`}>{tank.toUpperCase()}</span><span className="tank-label">{label}</span></div>
+function TankCard({t,td,label,tank,salts}){return(<div className="card"><div className="tank-header"><span className={`tank-badge tank-${tank}`}>{tank.toUpperCase()}</span><span className="tank-label">{label}</span></div>
   <table className="result-table"><thead><tr><th>{t('calc.col_salt')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_l')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_total')}</th><th style={{textAlign:'right'}}>{t('calc.col_g_tank')}</th></tr></thead>
     <tbody>{salts.map(s=>(<tr key={s.salt_formula}><td>{td(s.salt_name)}</td><td className="num">{Number(s.g_per_l).toFixed(4)}</td><td className="num">{Number(s.g_total).toFixed(1)}</td><td className="num" style={{fontWeight:600}}>{Number(s.g_concentrate).toFixed(1)}</td></tr>))}</tbody></table></div>)}
 function SI({label,value,className=''}){return <div className="stat-item"><div className="stat-label">{label}</div><div className={`stat-value ${className}`}>{value}</div></div>}

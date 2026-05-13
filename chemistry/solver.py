@@ -225,13 +225,15 @@ def solve(
     use_premix = use_premix and DEFAULT_SALTS[micro_source].is_premix if use_premix else False
 
     fe_need = _get_remaining("Fe")
-    if fe_need > 0 and not use_premix:
+    if fe_need > 0 and not use_premix and fe_chelate not in ("none", "from_premix"):
         fe_salt = FE_SALTS.get(fe_chelate, FE_DTPA)
         _use_chelate(fe_salt, fe_need, "A",
                      step(1, f"{fe_salt.name} → {t('b.for_fe')}"))
-    elif fe_need > 0 and use_premix:
+    elif fe_need > 0 and (use_premix or fe_chelate == "from_premix"):
         result.steps.append(
             step(1, warn_fmt("b.fe_via_premix", micro_source)))
+        if not use_premix and fe_chelate == "from_premix":
+            result.warnings.append(t("b.fe_no_premix_warn"))
 
     # ════════════════════════════════════════════════════════════════════
     # SCHRITT 2: Nitrat-Quellen – Ca(NO₃)₂ für Calcium
@@ -415,14 +417,14 @@ def solve(
                 if rest > 0.0001:
                     # Einzelsalz nachschießen
                     micro_salts = {
-                        "Fe": FE_SALTS.get(fe_chelate, FE_DTPA),
+                        "Fe": FE_SALTS.get(fe_chelate, FE_DTPA) if fe_chelate not in ("none", "from_premix") else None,
                         "Mn": MANGANESE_SULFATE, "Zn": ZINC_SULFATE,
                         "Cu": COPPER_SULFATE, "B": BORIC_ACID, "Mo": SODIUM_MOLYBDATE,
                     }
-                    if sym == "Fe":
+                    if sym == "Fe" and micro_salts["Fe"] is not None:
                         _use_chelate(micro_salts[sym], rest, "A",
                                      f"{step('7+', micro_salts[sym].name)} → {t('b.rest')}-Fe")
-                    elif sym in micro_salts:
+                    elif sym in micro_salts and micro_salts.get(sym) is not None:
                         _use_salt(micro_salts[sym], sym, rest, "B",
                                   f"{step('7+', f'{t('b.rest')}-{sym}')} ({rest:.4f} mmol/L)")
     else:
