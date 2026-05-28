@@ -166,6 +166,7 @@ TRANSLATIONS = {
     "rev.card_ratios": {"de": "Nährstoff-Verhältnisse & EC", "en": "Nutrient Ratios & EC"},
     "rev.card_match": {"de": "Ähnlichstes Rezept", "en": "Closest Recipe Match"},
     "rev.card_steps": {"de": "Berechnungsschritte", "en": "Calculation Steps"},
+    "rev.closest": {"de": "Ähnlichstes Rezept", "en": "Closest Recipe Match"},
     "rev.no_salts": {"de": "⚠️ Keine Salze eingetragen", "en": "⚠️ No salts entered"},
     # ── Water Profiles ──
     "water.title": {"de": "💧 Wasserprofile", "en": "💧 Water Profiles"},

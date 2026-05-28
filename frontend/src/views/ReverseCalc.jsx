@@ -3,7 +3,7 @@ import { useI18n } from '../hooks/useI18n'
 import { fetchSalts, calcReverse } from '../api'
 
 export default function ReverseCalc() {
-  const { t, td } = useI18n()
+  const { t, td, sd } = useI18n()
   const [allSalts, setAllSalts] = useState([])
   const [entries, setEntries] = useState([])
   const [volumeL, setVolumeL] = useState(100)
@@ -59,7 +59,6 @@ export default function ReverseCalc() {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-        {/* Volumen */}
         <div className="card">
           <div className="card-title">{t('rev.card_volume')}</div>
           <div className="form-group">
@@ -69,7 +68,6 @@ export default function ReverseCalc() {
           </div>
         </div>
 
-        {/* Salz hinzufügen */}
         <div className="card">
           <div className="card-title">{t('rev.card_add')}</div>
           <div className="form-grid">
@@ -78,7 +76,7 @@ export default function ReverseCalc() {
               <select className="form-select" value={addFormula}
                 onChange={e => setAddFormula(e.target.value)}>
                 {allSalts.map(s => (
-                  <option key={s.formula} value={s.formula}>{sd(s.name,s.formula)}</option>
+                  <option key={s.formula} value={s.formula}>{sd(s.name, s.formula)}</option>
                 ))}
               </select>
             </div>
@@ -97,7 +95,6 @@ export default function ReverseCalc() {
         </div>
       </div>
 
-      {/* Eingewogene Salze */}
       {entries.length > 0 && (
         <div className="card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -110,8 +107,8 @@ export default function ReverseCalc() {
           <table className="result-table" style={{ marginTop: 10 }}>
             <thead>
               <tr>
-                <th>Salz</th>
-                <th style={{ textAlign: 'right' }}>Gramm</th>
+                <th>{t('calc.col_salt')}</th>
+                <th style={{ textAlign: 'right' }}>{t('rev.grams')}</th>
                 <th style={{ textAlign: 'right' }}>g/L</th>
                 <th></th>
               </tr>
@@ -119,7 +116,7 @@ export default function ReverseCalc() {
             <tbody>
               {entries.map((e, i) => (
                 <tr key={i}>
-                  <td>{sd(e.salt_name,e.salt_formula||e.salt_name)}</td>
+                  <td>{sd(e.salt_name, e.salt_formula)}</td>
                   <td className="num">{fmt(e.grams, 1)}</td>
                   <td className="num" style={{ color: 'var(--text-secondary)' }}>
                     {fmt(e.grams / volumeL, 4)}
@@ -145,19 +142,17 @@ export default function ReverseCalc() {
         </button>
       </div>
 
-      {/* Ergebnis */}
       {result && (
         <div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-            {/* Ionenkonzentrationen */}
             <div className="card">
               <div className="card-title">{t('rev.card_ions')}</div>
               <table className="result-table">
                 <thead>
                   <tr>
-                    <th>Ion</th>
-                    <th style={{ textAlign: 'right' }}>mg/L</th>
-                    <th style={{ textAlign: 'right' }}>mmol/L</th>
+                    <th>{t('calc.col_ion')}</th>
+                    <th style={{ textAlign: 'right' }}>{t('gen.mg_l')}</th>
+                    <th style={{ textAlign: 'right' }}>{t('gen.mmol_l')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -177,11 +172,10 @@ export default function ReverseCalc() {
               </table>
             </div>
 
-            {/* Verhältnisse + EC */}
             <div className="card">
               <div className="card-title">{t('rev.card_ratios')}</div>
               <div className="stat-item" style={{ marginBottom: 14 }}>
-                <div className="stat-label">EC (geschätzt)</div>
+                <div className="stat-label">{t('c.ec_estimated')}</div>
                 <div className="stat-value">{fmt(result.ec_estimated)} mS/cm</div>
               </div>
 
@@ -203,7 +197,7 @@ export default function ReverseCalc() {
 
               {result.closest_recipe && (
                 <div className="alert alert-info" style={{ marginTop: 14 }}>
-                  📋 Ähnlichstes Rezept: <strong>{result.closest_recipe}</strong>
+                  📋 {t('rev.closest')}: <strong>{td(result.closest_recipe)}</strong>
                 </div>
               )}
             </div>
